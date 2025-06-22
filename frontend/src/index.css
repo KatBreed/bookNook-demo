@@ -1,24 +1,6 @@
-/* index.css - global base styles */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Minimal global reset and base styles */
-
-html, body {
-  @apply min-h-screen m-0 font-sans bg-gray-900 text-white;
-  /* Use Tailwind’s dark mode if configured, or media query for light */
-}
-
-@media (prefers-color-scheme: light) {
-  html, body {
-    @apply bg-white text-gray-900;
-  }
-}
+@import 'tailwindcss';
 
 /* Optional: smooth font rendering */
-
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
