@@ -1,0 +1,22 @@
+/* App.css - app specific styles */
+
+#root {
+  @apply max-w-7xl mx-auto p-8 text-center;
+}
+
+/* You can define reusable utility classes here if needed */
+
+.button-primary {
+  @apply rounded-lg border border-transparent px-6 py-2 text-base font-medium bg-gray-900 hover:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-400 transition-colors duration-300;
+}
+
+/* Logo styles if not inline */
+.logo {
+  @apply h-24 p-6 transition-filter duration-300;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em rgba(100, 108, 255, 0.67));
+}
+
+/* Other app-level styles you want to separate from Tailwind */
