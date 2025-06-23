@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   --font-heading: "Merriweather", serif;
@@ -7,11 +7,11 @@
   --text-hero: 2.5rem;
   --text-section: 2rem;
 
-  --color-primary: #3A4F63;      /* Cool slate blue */
-  --color-secondary: #6792A2;    /* Dusty teal */
-  --color-accent: #7AC4BD;       /* Soft aqua pop */
-  --color-background: #F1F7F9;   /* Misty off-white */
-  --color-text: #2B353B;         /* Charcoal graphite */
+  --color-primary: #3a4f63; /* Cool slate blue */
+  --color-secondary: #6792a2; /* Dusty teal */
+  --color-accent: #7ac4bd; /* Soft aqua pop */
+  --color-background: #f1f7f9; /* Misty off-white */
+  --color-text: #2b353b; /* Charcoal graphite */
 }
 
 /* Optional: smooth font rendering */
@@ -19,4 +19,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-

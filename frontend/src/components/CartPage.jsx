@@ -1,5 +1,5 @@
-import React from 'react';
-import { useCart } from '../context/CartContext';
+import React from "react";
+import { useCart } from "../context/CartProvider";
 
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
@@ -21,7 +21,7 @@ export default function CartPage() {
       <h2 className="text-section font-heading mb-8 text-center">Your Cart</h2>
 
       <div className="space-y-4">
-        {cartItems.map(item => (
+        {cartItems.map((item) => (
           <div
             key={item._id}
             className="flex items-center justify-between border border-gray-200 bg-white p-4 rounded-lg shadow-sm"
@@ -75,7 +75,7 @@ export default function CartPage() {
             Clear Cart
           </button>
           <button
-            onClick={() => alert('Checkout feature coming soon!')}
+            onClick={() => alert("Checkout feature coming soon!")}
             className="bg-accent text-white px-4 py-2 rounded hover:bg-primary transition-colors"
           >
             Checkout

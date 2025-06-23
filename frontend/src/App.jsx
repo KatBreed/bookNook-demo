@@ -1,10 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import BooksPage from './pages/BooksPage';
-import CartPage from './components/CartPage';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import BooksPage from "./pages/BooksPage";
+import BookDetails from "./pages/BookDetails";
+import CartPage from "./components/CartPage";
+import "./App.css";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/books" element={<BooksPage />} />
+          <Route path="/books/:id" element={<BookDetails />} />
           <Route path="/cart" element={<CartPage />} />
         </Routes>
       </main>

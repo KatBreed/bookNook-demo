@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useCart } from "../context/CartProvider";
 
 export default function Navbar() {
   const { cartItems } = useCart();
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const baseLink = 'hover:text-accent transition-colors duration-300';
-  const activeLink = 'text-accent font-semibold';
+  const baseLink = "hover:text-accent transition-colors duration-300";
+  const activeLink = "text-accent font-semibold";
 
   return (
     <nav
@@ -48,7 +48,7 @@ export default function Navbar() {
 
       <ul
         className={`flex flex-col md:flex-row md:space-x-6 md:static absolute top-16 right-4 bg-primary md:bg-transparent p-4 md:p-0 rounded-md ${
-          menuOpen ? 'block' : 'hidden'
+          menuOpen ? "block" : "hidden"
         } md:flex`}
       >
         <li>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import BookCard from './BookCard';
+import React, { useEffect, useState } from "react";
+import BookCard from "./BookCard";
 
 export default function BookGrid() {
   const [books, setBooks] = useState([]);
@@ -7,18 +7,18 @@ export default function BookGrid() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/books')
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch');
+    fetch("/api/books")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch");
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         setBooks(data);
         setLoading(false);
       })
-      .catch(err => {
-        console.error('Error fetching books:', err);
-        setError('Unable to load books at the moment.');
+      .catch((err) => {
+        console.error("Error fetching books:", err);
+        setError("Unable to load books at the moment.");
         setLoading(false);
       });
   }, []);
@@ -28,7 +28,7 @@ export default function BookGrid() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto p-4">
-      {books.map(book => (
+      {books.map((book) => (
         <BookCard key={book._id} book={book} />
       ))}
     </div>
