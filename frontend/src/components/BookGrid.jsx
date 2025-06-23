@@ -8,9 +8,10 @@ export default function BookGrid() {
 
   useEffect(() => {
     fetch("/api/books")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json();
+      .then(async (res) => {
+        const text = await res.text();
+        console.log("Raw response:", text); // 👀
+        return JSON.parse(text);
       })
       .then((data) => {
         setBooks(data);

@@ -18,6 +18,10 @@ app.get("/", (req, res) => {
 const bookRoutes = require("./routes/bookRoutes");
 app.use("/api/books", bookRoutes);
 
+// Stripe payment routes
+const paymentRoutes = require("./routes/paymentRoutes");
+app.use("/api/payment", paymentRoutes);
+
 // Connect to MongoDB and start server
 mongoose
   .connect(process.env.MONGO_URI)
