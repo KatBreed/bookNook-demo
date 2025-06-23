@@ -1,7 +1,22 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-heading: "Merriweather", serif;
+  --font-body: "Inter", sans-serif;
+
+  --text-hero: 2.5rem;
+  --text-section: 2rem;
+
+  --color-primary: #3A4F63;      /* Cool slate blue */
+  --color-secondary: #6792A2;    /* Dusty teal */
+  --color-accent: #7AC4BD;       /* Soft aqua pop */
+  --color-background: #F1F7F9;   /* Misty off-white */
+  --color-text: #2B353B;         /* Charcoal graphite */
+}
+
 /* Optional: smooth font rendering */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+

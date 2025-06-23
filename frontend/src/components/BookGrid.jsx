@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BookCard from './BookCard';  // Import the BookCard component
+import BookCard from './BookCard';
 
 export default function BookGrid() {
   const [books, setBooks] = useState([]);
@@ -23,8 +23,8 @@ export default function BookGrid() {
       });
   }, []);
 
-  if (loading) return <p>Loading books...</p>;
-  if (error) return <p className="text-red-600">{error}</p>;
+  if (loading) return <p className="font-body text-text">Loading books...</p>;
+  if (error) return <p className="font-body text-red-600">{error}</p>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto p-4">

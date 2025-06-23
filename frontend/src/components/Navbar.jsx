@@ -5,29 +5,26 @@ import { useCart } from '../context/CartContext';
 export default function Navbar() {
   const { cartItems } = useCart();
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const baseLink = 'hover:text-gray-300 transition-colors duration-300';
-  const activeLink = 'text-indigo-400 font-semibold';
+  const baseLink = 'hover:text-accent transition-colors duration-300';
+  const activeLink = 'text-accent font-semibold';
 
   return (
     <nav
       aria-label="Primary navigation"
-      className="bg-gray-800 text-white p-4 flex justify-between items-center"
+      className="bg-primary text-white p-4 flex justify-between items-center"
     >
-      {/* Logo */}
       <h1 className="text-xl font-bold">
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? activeLink : baseLink}
+          className={({ isActive }) => (isActive ? activeLink : baseLink)}
           onClick={() => setMenuOpen(false)}
         >
           Bookshop Demo
         </NavLink>
       </h1>
 
-      {/* Hamburger Button */}
       <button
         className="md:hidden text-white focus:outline-none"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -49,12 +46,15 @@ export default function Navbar() {
         </svg>
       </button>
 
-      {/* Nav Links */}
-      <ul className={`flex flex-col md:flex-row md:space-x-6 md:static absolute top-16 right-4 bg-gray-800 md:bg-transparent p-4 md:p-0 rounded-md ${menuOpen ? 'block' : 'hidden'} md:flex`}>
+      <ul
+        className={`flex flex-col md:flex-row md:space-x-6 md:static absolute top-16 right-4 bg-primary md:bg-transparent p-4 md:p-0 rounded-md ${
+          menuOpen ? 'block' : 'hidden'
+        } md:flex`}
+      >
         <li>
           <NavLink
             to="/"
-            className={({ isActive }) => isActive ? activeLink : baseLink}
+            className={({ isActive }) => (isActive ? activeLink : baseLink)}
             onClick={() => setMenuOpen(false)}
           >
             Home
@@ -63,7 +63,7 @@ export default function Navbar() {
         <li>
           <NavLink
             to="/books"
-            className={({ isActive }) => isActive ? activeLink : baseLink}
+            className={({ isActive }) => (isActive ? activeLink : baseLink)}
             onClick={() => setMenuOpen(false)}
           >
             Books
@@ -72,7 +72,7 @@ export default function Navbar() {
         <li>
           <NavLink
             to="/cart"
-            className={({ isActive }) => isActive ? activeLink : baseLink}
+            className={({ isActive }) => (isActive ? activeLink : baseLink)}
             onClick={() => setMenuOpen(false)}
           >
             Cart ({cartCount})
