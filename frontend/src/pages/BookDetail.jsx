@@ -29,8 +29,17 @@ export default function BookDetail() {
       <h2 className="text-3xl font-heading text-primary mb-2">{book.title}</h2>
       <p className="text-lg text-secondary mb-4">By {book.author}</p>
       <p className="mb-6">{book.description}</p>
-      <p className="text-xl font-semibold">Price: ${book.price.toFixed(2)}</p>
-      <p className="text-sm text-gray-500 mt-2">ISBN: {book.isbn}</p>
+      
+      <div className="mb-4 space-y-2">
+        <p className="text-base text-gray-600">Genre: {book.genre}</p>
+        <p className="text-base text-gray-600">Publisher: {book.publisher}</p>
+        <p className="text-base text-gray-600">
+          Publication Date: {new Date(book.publicationDate).toLocaleDateString()}
+        </p>
+        <p className="text-base text-gray-600">In Stock: {book.stock}</p>
+        <p className="text-xl font-semibold">Price: ${book.price.toFixed(2)}</p>
+        <p className="text-sm text-gray-500">ISBN: {book.isbn}</p>
+      </div>
     </div>
   );
 }

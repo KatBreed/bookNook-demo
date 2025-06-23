@@ -13,12 +13,28 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  genre: {
+    type: String,
+    required: true,
+  }, 
   price: {
     type: Number,
     required: true,
   },
   isbn: {
     type: String,
+    required: true,
+  },
+  publisher: {
+    type: String,
+    required: true,
+  },
+  publicationDate: {
+    type: Date,
+    required: true,
+  },
+  stock: {
+    type: Number,
     required: true,
   },
   coverImage: {
