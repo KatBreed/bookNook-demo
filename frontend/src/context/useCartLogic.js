@@ -31,10 +31,17 @@ export function useCartLogic() {
     );
   };
 
+  // ✅ Calculate total price (price * quantity)
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + (item.price * item.quantity),
+    0
+  );
+
   return {
     cartItems,
     addToCart,
     removeFromCart,
     updateQuantity,
+    totalPrice, // ✅ Return totalPrice to the context
   };
 }

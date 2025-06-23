@@ -6,8 +6,7 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import BooksPage from "./pages/BooksPage";
 import BookDetail from "./pages/BookDetail";
-import CartPage from "./components/CartPage";
-import CheckoutPage from "./pages/CheckoutPage";
+import CartPage from "./pages/CartPage";
 import SuccessPage from "./pages/SuccessPage";
 import CancelPage from "./pages/CancelPage";
 
@@ -23,7 +22,6 @@ export default function App() {
           <Route path="/books" element={<BooksPage />} />
           <Route path="/books/:id" element={<BookDetail />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/cancel" element={<CancelPage />} />
         </Routes>
