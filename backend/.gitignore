@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# environment
+.env
+
+# logs
+*.log
+logs/
+npm-debug.log*
+
+# runtime
+.pids
+*.pid
+
+# editor junk
+.DS_Store
+.vscode/
+.idea/
