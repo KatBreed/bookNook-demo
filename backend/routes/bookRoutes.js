@@ -11,7 +11,9 @@ router.get("/", async (req, res) => {
       ? { genres: { $in: [new RegExp(`^${genre}$`, "i")] } }
       : {};
 
-    const books = await Book.find(query).limit(10);
+    const books = await Book.find(query)
+    .sort({publicationDate: -1})
+    .limit(10);
     res.json(books);
   } catch (err) {
     console.error(err);

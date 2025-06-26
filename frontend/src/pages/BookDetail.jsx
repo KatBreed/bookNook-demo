@@ -31,7 +31,9 @@ export default function BookDetail() {
       <p className="mb-6">{book.description}</p>
       
       <div className="mb-4 space-y-2">
-        <p className="text-base text-gray-600">Genre: {book.genre}</p>
+        <p className="text-base text-gray-600">
+          Genre: {book.genres?.join(", ") || "Unknown"}
+        </p>
         <p className="text-base text-gray-600">Publisher: {book.publisher}</p>
         <p className="text-base text-gray-600">
           Publication Date: {new Date(book.publicationDate).toLocaleDateString()}
