@@ -5,6 +5,7 @@ const bookSchema = new mongoose.Schema({
   authors: { type: [String], required: true }, 
   description: { type: String, required: true },
   genres: { type: [String], required: true }, 
+  format: {type: String, enum: ["Hardcover", "Paperback", "Ebook"], required: true },
   price: { type: Number, required: true },
   isbn: {
     type: String,

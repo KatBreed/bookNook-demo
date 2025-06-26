@@ -57,7 +57,15 @@ export default function BookCarousel({ genre, title }) {
 
   return (
     <section className="my-8 relative">
-      <h2 className="text-2xl font-bold mb-4">{title}</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">{title}</h2>
+        <Link
+          to={`/books?genre=${encodeURIComponent(genre)}`}
+          className="text-sm text-blue-600 hover:underline"
+        >
+          See more →
+        </Link>
+      </div>
 
       {/* Left Chevron */}
       <button

@@ -2,15 +2,21 @@ import React from "react";
 
 export default function GenreFilter({ selectedGenre, onGenreChange }) {
   const genres = [
-    "All Genres",
-    "Fiction",
-    "Non-Fiction",
-    "Science Fiction",
-    "Fantasy",
-    "Biography",
-    "Teen & Young Adult",
-    "Children's",
-  ];
+  "All Genres",
+  "Fiction",
+  "Non-Fiction",
+  "Science Fiction",
+  "Fantasy",
+  "Biography",
+  "Mystery",
+  "Romance",
+  "Thriller",
+  "Historical Fiction",
+  "Self-Help",
+  "Teen & Young Adult",
+  "Children's"
+];
+
 
   return (
     <section className="mb-8">
