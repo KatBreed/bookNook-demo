@@ -6,25 +6,23 @@ export default function BookGrid({ selectedGenre }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const BACKEND_URL = "http://localhost:5000";
-
   useEffect(() => {
     setLoading(true);
-    let url = `${BACKEND_URL}/api/books`;
+    let url = "/api/books";
     if (selectedGenre && selectedGenre !== "All Genres") {
       url += `?genre=${encodeURIComponent(selectedGenre)}`;
     }
 
     fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error(`Network response was not ok: ${res.statusText}`);
-        return res.json();
+      .then(async (res) => {
+        const text = await res.text();
+        return JSON.parse(text);
       })
-      .then(data => {
+      .then((data) => {
         setBooks(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Error fetching books:", err);
         setError("Unable to load books at the moment.");
         setLoading(false);
