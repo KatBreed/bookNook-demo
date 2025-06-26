@@ -27,10 +27,11 @@ export default function BookDetail() {
         className="w-full h-96 object-cover rounded mb-6"
       />
       <h2 className="text-3xl font-heading text-primary mb-2">{book.title}</h2>
-        <p className="text-lg text-secondary mb-4">By {book.authors.join(', ')}</p>
-        <p className="mb-6">{book.description}</p>
+      <p className="text-lg text-secondary mb-4">By {book.author}</p>
+      <p className="mb-6">{book.description}</p>
+      
       <div className="mb-4 space-y-2">
-        <p className="text-base text-gray-600">Genre: {book.genres.join(', ')}</p>
+        <p className="text-base text-gray-600">Genre: {book.genre}</p>
         <p className="text-base text-gray-600">Publisher: {book.publisher}</p>
         <p className="text-base text-gray-600">
           Publication Date: {new Date(book.publicationDate).toLocaleDateString()}

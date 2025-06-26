@@ -10,12 +10,6 @@ export default function GenreFilter({ selectedGenre, onGenreChange }) {
     "Biography",
     "Teen & Young Adult",
     "Children's",
-    "Mystery", 
-    "Romance", 
-    "Thriller", 
-    "Historical Fiction", 
-    "Horror", 
-    "Self-Help",
   ];
 
   return (

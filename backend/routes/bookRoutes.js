@@ -2,16 +2,18 @@ const express = require("express");
 const router = express.Router();
 const Book = require("../models/Book");
 
-// GET all books with optional genre filter
+// GET all books (optionally filter by genre)
 router.get("/", async (req, res) => {
   try {
-    let genre = req.query.genre ? req.query.genre.trim() : null;
+    const { genre } = req.query;
+    let books;
 
-    const query = genre && genre !== "All Genres"
-      ? { genres: { $in: [new RegExp(`^${genre}$`, "i")] } }
-      : {};
+    if (genre && genre !== "All Genres") {
+      books = await Book.find({ genre: { $regex: new RegExp(`^${genre}$`, 'i') } });
+    } else {
+      books = await Book.find();
+    }
 
-    const books = await Book.find(query).limit(10);
     res.json(books);
   } catch (err) {
     console.error(err);
