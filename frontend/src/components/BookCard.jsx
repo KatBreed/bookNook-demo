@@ -17,9 +17,14 @@ export default function BookCard({ book }) {
           <h3 className="font-heading text-lg font-semibold text-primary mb-1">
             {book.title}
           </h3>
-          <p className="text-sm text-secondary mb-1">{book.author}</p>
-          <p className="text-sm text-gray-500 mb-2">{book.genre}</p>
-          <p className="text-base font-semibold mb-4">${book.price.toFixed(2)}</p>
+            <p className="text-sm text-secondary mb-1">
+              {book.authors.join(", ")}
+            </p>
+            <p className="text-sm text-gray-500 mb-1">
+              {book.genres.join(", ")}
+            </p>
+            <p className="text-sm text-gray-600 mb-2">{book.format}</p>
+            <p className="text-base font-semibold mb-4">${book.price.toFixed(2)}</p>
         </Link>
         <button
           onClick={() => addToCart(book)}
