@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+import { useCart } from "../context/CartProvider";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -28,10 +28,11 @@ export default function BooksPage() {
   const query = useQuery();
   const initialGenre = query.get("genre") || "All";
 
+  const { addToCart } = useCart();
+
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filters
   const [selectedGenre, setSelectedGenre] = useState(initialGenre);
   const [selectedFormat, setSelectedFormat] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -76,7 +77,6 @@ export default function BooksPage() {
           <aside className="md:col-span-1 bg-white p-4 rounded shadow-md">
             <h2 className="text-xl font-semibold mb-4">Filter</h2>
 
-            {/* Genre Filter */}
             <label className="block text-sm font-medium mb-1">Genre</label>
             <select
               value={selectedGenre}
@@ -90,7 +90,6 @@ export default function BooksPage() {
               ))}
             </select>
 
-            {/* Format Filter */}
             <label className="block text-sm font-medium mb-1">Format</label>
             <select
               value={selectedFormat}
@@ -104,7 +103,6 @@ export default function BooksPage() {
               ))}
             </select>
 
-            {/* Search */}
             <label className="block text-sm font-medium mb-1">Search</label>
             <input
               type="text"
@@ -124,21 +122,34 @@ export default function BooksPage() {
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                 {books.map((book) => (
-                  <Link to={`/books/${book._id}`} key={book._id}>
-                    <div className="bg-white rounded shadow-md p-3 hover:shadow-lg transition-all">
+                  <div
+                    key={book._id}
+                    className="bg-white rounded shadow-md p-3 hover:shadow-lg transition-all"
+                  >
+                    <Link to={`/books/${book._id}`}>
                       <img
                         src={book.coverImage}
                         alt={book.title}
                         className="w-full h-60 object-cover rounded"
                       />
-                      <h3 className="mt-2 text-lg font-semibold truncate" title={book.title}>
+                      <h3
+                        className="mt-2 text-lg font-semibold truncate"
+                        title={book.title}
+                      >
                         {book.title}
                       </h3>
                       <p className="text-sm text-gray-500 line-clamp-1">
                         {book.authors?.join(", ")}
                       </p>
-                    </div>
-                  </Link>
+                    </Link>
+
+                    <button
+                      onClick={() => addToCart(book)}
+                      className="mt-2 w-full bg-primary text-white px-4 py-1 rounded hover:bg-primary-dark"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 ))}
               </div>
             )}

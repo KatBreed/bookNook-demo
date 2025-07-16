@@ -1,7 +1,13 @@
 import { useCart } from "../context/CartProvider";
 
 export default function CartPage() {
-  const { cartItems, totalPrice } = useCart();
+  const {
+    cartItems,
+    totalPrice,
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart,
+  } = useCart();
 
   const handleCheckout = async () => {
     try {
@@ -14,7 +20,7 @@ export default function CartPage() {
       });
       const data = await response.json();
       if (data.url) {
-        window.location.href = data.url; // Redirect to Stripe Checkout
+        window.location.href = data.url;
       } else {
         alert("Failed to create checkout session");
       }
@@ -30,12 +36,47 @@ export default function CartPage() {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-4">
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+      <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
+
       <ul className="divide-y divide-gray-200 mb-6">
         {cartItems.map((item) => (
-          <li key={item.id} className="py-3 flex justify-between">
-            <span>{item.title}</span>
-            <span>${item.price.toFixed(2)}</span>
+          <li
+            key={item.id}
+            className="flex justify-between items-center py-4"
+          >
+            <div className="flex flex-col space-y-1">
+              <span className="font-semibold">{item.title}</span>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => decreaseQuantity(item.id)}
+                  className="w-7 h-7 border rounded"
+                >
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button
+                  onClick={() => increaseQuantity(item.id)}
+                  className="w-7 h-7 border rounded"
+                >
+                  +
+                </button>
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="ml-4 text-red-500 hover:underline text-sm"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+
+            <div className="text-right">
+              <p className="font-medium">
+                ${(item.price * item.quantity).toFixed(2)}
+              </p>
+              <p className="text-sm text-gray-500">
+                (${item.price.toFixed(2)} each)
+              </p>
+            </div>
           </li>
         ))}
       </ul>

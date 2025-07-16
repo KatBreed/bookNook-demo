@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from "../context/CartProvider";
 
 export default function BookDetail() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [error, setError] = useState(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetch(`/api/books/${id}`)
@@ -37,18 +39,23 @@ export default function BookDetail() {
         </p>
         <p className="text-base text-gray-600">Publisher: {book.publisher}</p>
         <p className="text-base text-gray-600">
-          Publication Date: {
-            new Date(book.publicationDate).toLocaleDateString("en-NZ", {
+          Publication Date: {new Date(book.publicationDate).toLocaleDateString("en-NZ", {
             year: "numeric",
             month: "long",
             day: "numeric",
-            })
-          }
+          })}
         </p>
         <p className="text-base text-gray-600">In Stock: {book.stock}</p>
         <p className="text-xl font-semibold">Price: ${book.price.toFixed(2)}</p>
         <p className="text-sm text-gray-500">ISBN: {book.isbn}</p>
       </div>
+
+      <button
+        onClick={() => addToCart(book)}
+        className="mt-4 bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark"
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }
