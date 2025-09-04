@@ -1,161 +1,69 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
-import { useCart } from "../context/CartProvider";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-const genresList = [
-  "All",
-  "Fiction",
-  "Non-Fiction",
-  "Science Fiction",
-  "Fantasy",
-  "Biography",
-  "Mystery",
-  "Romance",
-  "Thriller",
-  "Historical Fiction",
-  "Self-Help",
-  "Teen & Young Adult",
-  "Children's",
-];
-
-const formats = ["All", "Hardcover", "Paperback", "Ebook"];
-
-export default function BooksPage() {
-  const query = useQuery();
-  const initialGenre = query.get("genre") || "All";
-
-  const { addToCart } = useCart();
-
+const BooksPage = () => {
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedGenre, setSelectedGenre] = useState("All");
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [selectedGenre, setSelectedGenre] = useState(initialGenre);
-  const [selectedFormat, setSelectedFormat] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
-
+  // sync with URL
   useEffect(() => {
-    let url = "http://localhost:5000/api/books";
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(location.search);
+    const genre = params.get("genre") || "All";
+    setSelectedGenre(genre);
+  }, [location.search]);
 
-    if (selectedGenre && selectedGenre !== "All") {
-      params.append("genre", selectedGenre);
-    }
-    if (selectedFormat && selectedFormat !== "All") {
-      params.append("format", selectedFormat);
-    }
-    if (searchTerm.trim() !== "") {
-      params.append("search", searchTerm);
-    }
+  // fetch books on genre change
+  useEffect(() => {
+    const fetchBooks = async () => {
+      let url = "/api/books";
+      if (selectedGenre !== "All") {
+        url += `?genre=${encodeURIComponent(selectedGenre)}`;
+      }
+      const res = await fetch(url);
+      const data = await res.json();
+      setBooks(data);
+    };
 
-    if (params.toString()) {
-      url += `?${params.toString()}`;
-    }
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setBooks(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch books:", err);
-        setLoading(false);
-      });
-  }, [selectedGenre, selectedFormat, searchTerm]);
+    fetchBooks();
+  }, [selectedGenre]);
 
   return (
-    <main className="bg-background text-text font-body min-h-screen py-12">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-6">Browse Books</h1>
+    <div className="flex">
+      {/* Sidebar */}
+      <aside className="w-1/4 p-4 border-r">
+        <h2 className="text-lg font-semibold mb-2">Filter by Genre</h2>
+        <select
+          value={selectedGenre}
+          onChange={(e) => {
+            const value = e.target.value;
+            setSelectedGenre(value);
+            navigate(value === "All" ? "/books" : `/books?genre=${encodeURIComponent(value)}`);
+          }}
+          className="w-full mb-4 p-2 border border-gray-300 rounded"
+        >
+          {["All", "Fantasy", "Sci-Fi", "Romance", "Thriller"].map((genre) => (
+            <option key={genre} value={genre}>
+              {genre}
+            </option>
+          ))}
+        </select>
+      </aside>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Sidebar */}
-          <aside className="md:col-span-1 bg-white p-4 rounded shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Filter</h2>
-
-            <label className="block text-sm font-medium mb-1">Genre</label>
-            <select
-              value={selectedGenre}
-              onChange={(e) => setSelectedGenre(e.target.value)}
-              className="w-full mb-4 p-2 border border-gray-300 rounded"
-            >
-              {genresList.map((genre) => (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
-              ))}
-            </select>
-
-            <label className="block text-sm font-medium mb-1">Format</label>
-            <select
-              value={selectedFormat}
-              onChange={(e) => setSelectedFormat(e.target.value)}
-              className="w-full mb-4 p-2 border border-gray-300 rounded"
-            >
-              {formats.map((format) => (
-                <option key={format} value={format}>
-                  {format}
-                </option>
-              ))}
-            </select>
-
-            <label className="block text-sm font-medium mb-1">Search</label>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Title or author"
-              className="w-full mb-2 p-2 border border-gray-300 rounded"
-            />
-          </aside>
-
-          {/* Books Grid */}
-          <section className="md:col-span-3">
-            {loading ? (
-              <p>Loading books...</p>
-            ) : books.length === 0 ? (
-              <p>No books found.</p>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                {books.map((book) => (
-                  <div
-                    key={book._id}
-                    className="bg-white rounded shadow-md p-3 hover:shadow-lg transition-all"
-                  >
-                    <Link to={`/books/${book._id}`}>
-                      <img
-                        src={book.coverImage}
-                        alt={book.title}
-                        className="w-full h-60 object-cover rounded"
-                      />
-                      <h3
-                        className="mt-2 text-lg font-semibold truncate"
-                        title={book.title}
-                      >
-                        {book.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 line-clamp-1">
-                        {book.authors?.join(", ")}
-                      </p>
-                    </Link>
-
-                    <button
-                      onClick={() => addToCart(book)}
-                      className="mt-2 w-full bg-primary text-white px-4 py-1 rounded hover:bg-primary-dark"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-        </div>
-      </div>
-    </main>
+      {/* Main content */}
+      <main className="flex-1 p-4">
+        <h1 className="text-2xl font-bold mb-4">Books</h1>
+        <ul>
+          {books.map((book) => (
+            <li key={book.id}>
+              {book.title} — {book.genre}
+            </li>
+          ))}
+        </ul>
+      </main>
+    </div>
   );
-}
+};
+
+export default BooksPage;
